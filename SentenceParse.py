@@ -1,3 +1,4 @@
+import re
 MAX_SIZE = 200 #Max sentence length
 
 def _Parse(sentence: str):
@@ -73,7 +74,12 @@ def _ParseSentence(paragraph: str):
             
         
     return results
-            
+
+def _ParseMath(sentence: str):
+    regex = "(\(( (\d*)|\d*)( ( |-|\+|\/|\*|x|X|e|E|\*\*|\^)|-|\+|\/|\*|x|X|e|E|\*\*|^)( (\d*)|\d*)( \)|\)))|(\d+( ( |-|\+|\/|\*|x|X|\*\*|^)|-|\+|\/|\*|x|X|e|E|\*\*|\^)( (\d*)|\d*))|(\d+.\d+)"
+    newSentence = re.sub(regex,'[MATH]',sentence)
+    return newSentence
+
 def ParseParagraph(paragraph: str):    
     results = _ParseSentence(paragraph)
     word_arrays = []
