@@ -83,12 +83,16 @@ converts a paragraph into component sentences based on punctuation."""
         # Is end of paragraph? Add sentence if not empty and end
         if i == len(paragraph)-1:
             if len(sentence) > 0:
+                sentence = sentence.strip()
+                sentence = re.sub('(\\n)', '', sentence)
                 results.append(sentence)
             break
 
         # Is end of line? Add sentence if not empty
         if (paragraph[i] == "." or paragraph[i] == "!" or paragraph[i] == "?"):
             if len(sentence) > 0:
+                sentence = sentence.strip()
+                sentence = re.sub('(\\n)', '', sentence)
                 results.append(sentence)
                 sentence = ""
             
@@ -121,3 +125,8 @@ def ParseParagraph(paragraph: str) -> list:
 def SetMaxSize(size:int) -> None:
     """Set the maximum size a sentence can be before becoming a blob"""
     MAX_SIZE = size
+
+
+f = open("test1.txt")
+print(ParseParagraph(f.read()))
+#print(ParseParagraph(input()))
