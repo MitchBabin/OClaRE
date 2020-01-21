@@ -1,3 +1,9 @@
+#####################
+#      Imports      #
+#####################
+import re
+
+
 MAX_SIZE = 20 #Max sentence length
 
 
