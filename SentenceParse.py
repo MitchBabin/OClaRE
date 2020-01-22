@@ -156,6 +156,8 @@ converts a paragraph into component sentences based on punctuation."""
         # Is end of paragraph? Add sentence if not empty and end
         if i == len(paragraph)-1:
             if len(sentence) > 0:
+                sentence = sentence.strip()
+                sentence = re.sub('(\\n)', '', sentence)
                 results.append(sentence)
             break
 
@@ -165,6 +167,8 @@ converts a paragraph into component sentences based on punctuation."""
         # Is end of line? Add sentence if not empty
         if paragraph[i] == "." or paragraph[i] == "!" or paragraph[i] == "?":
             if len(sentence) > 0:
+                sentence = sentence.strip()
+                sentence = re.sub('(\\n)', '', sentence)
                 results.append(sentence)
                 sentence = ""
             
@@ -213,3 +217,7 @@ Checks if the specfied index is part of an ellipsis in the provided text."""
         return True
 
     return False
+
+f = open("test1.txt")
+print(ParseParagraph(f.read()))
+#print(ParseParagraph(input()))
