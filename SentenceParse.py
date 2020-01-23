@@ -2,9 +2,10 @@
 #      Imports      #
 #####################
 import re
+import Kandy
 
 
-MAX_SIZE = 20 #Max sentence length
+MAX_SIZE = 20 # Max sentence length
 
 
 def _ParseWords(sentence: str) -> list:
@@ -175,28 +176,33 @@ converts a paragraph into component sentences based on punctuation."""
         
     return results
 
-
-
-def _ParseMath(sentence: str) -> str:
-    """Private function unintended for use outside library.
-Converts all math symbols and formulas into [MATH] placeholders."""
-    
-    regex = "(\(( (\d*)|\d*)( ( |-|\+|\/|\*|x|X|e|E|\*\*|\^)|-|\+|\/|\*|x|X|e|E|\*\*|^)( (\d*)|\d*)( \)|\)))|(\d+( ( |-|\+|\/|\*|x|X|\*\*|^)|-|\+|\/|\*|x|X|e|E|\*\*|\^)( (\d*)|\d*))|(\d+.\d+)"
-    newSentence = re.sub(regex,'[MATH]',sentence)
-    return newSentence
-
-
 def ParseParagraph(paragraph: str) -> list:
     """Converts a paragraph into a list of lists containing a blob's worth of words. The length of a blob is defined by SetMaxSize(size: int)"""
-    results = _ParseSentence(paragraph)
-    word_arrays = []
+
+    results = Kandy.LaunchKandy(paragraph)
+    results = _ParseSentence(results)
+    sentences = []
     
     for sentence in results:
-        blobs = _ParseMath(sentence)
+        blobs = sentence
+        sentence = []
         for blob in _ParseWords(blobs):
-            word_arrays.append(blob)
+            sentence.append(blob)
+        sentences.append(sentence)
+
+    for i in range(0, len(sentences)):
+        sentence = []
+        wasMath = False
+        for word in sentences[i]:
+            if not wasMath and word == "[MATH]":
+                sentence.append(word)
+                wasMath = True
+            elif not word == "[MATH]":
+                sentence.append(word)
+                wasMath = False
+        sentences[i] = sentence
             
-    return word_arrays
+    return sentences
 
 def SetMaxSize(size:int) -> None:
     """Set the maximum size a sentence can be before becoming a blob"""
@@ -220,4 +226,3 @@ Checks if the specfied index is part of an ellipsis in the provided text."""
 
 f = open("test1.txt")
 print(ParseParagraph(f.read()))
-#print(ParseParagraph(input()))
