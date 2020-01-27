@@ -7,7 +7,7 @@ import re
 #    Replace Math ( With [MATH])        #
 #########################################
 def _ReplaceMath(text: str):
-    mathSignRegex = "\-|(?<=[^a-zA-Z])(−)(?=[^a-zA-Z])|\+|\*|\/|(?<=[^a-zA-Z])(x)(?=[^a-zA-Z])|(?<=[^a-zA-Z])(×)(?=[^a-zA-Z])|(?<=[^a-zA-Z])(X)(?=[^a-zA-Z])|\^"
+    mathSignRegex = "(?<=[^a-zA-Z])(-)(?=[^a-zA-Z])|(?<=[^a-zA-Z])(−)(?=[^a-zA-Z])|\+|\*|\/|(?<=[^a-zA-Z])(x)(?=[^a-zA-Z])|(?<=[^a-zA-Z])(×)(?=[^a-zA-Z])|(?<=[^a-zA-Z])(X)(?=[^a-zA-Z])|\^"
     mathDecRegex = "\d+\.+\d+"
     mathNumber = "\d+"
     mathParentheses = "(\(( |\d+| \(\d+).*\))"
