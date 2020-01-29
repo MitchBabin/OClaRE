@@ -1,3 +1,14 @@
+#############################
+#      SentenceParser       #
+# Parses paragraphs into a  #
+# list of sentences,        #
+# splitting on periods,     #
+# double newlines and EOF.  #
+# Also converts math into   #
+# [MATH] tokens             #
+#############################
+
+
 #####################
 #      Imports      #
 #####################
@@ -225,7 +236,3 @@ Checks if the specified index is part of an ellipsis in the provided text."""
         return True
 
     return False
-
-
-f = open("test1.txt")
-print(ParseParagraph(f.read()))

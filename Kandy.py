@@ -1,4 +1,12 @@
 #########################################
+#           Kandy Library               #
+# Strips math into math tokens,         #
+# commas from sentences                 #
+# and turns newlines into spaces or     #
+# double newlines into periods          #
+#########################################
+
+#########################################
 #               Imports                 #
 #########################################
 import re
